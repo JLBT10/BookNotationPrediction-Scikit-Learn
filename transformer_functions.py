@@ -14,7 +14,7 @@ def month_year(df,columns):
 
 def drop_outliers(df):
     '''Drop all the rows where ratings_counts=0 and average_rating==0'''
-    mask=(df.ratings_count==0) | (df.average_rating==0)
+    mask=(df.ratings_count==0) | (df.average_rating==0) #are we supposed to use or here or and? 
     return df[~mask]
 
 class BooksProcessingTransformer(BaseEstimator, TransformerMixin):
