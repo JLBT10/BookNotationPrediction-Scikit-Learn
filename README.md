@@ -2,7 +2,7 @@
 
 <div style="text-align: center;">
 <img
-src="images/logo_DSTI.png"
+src="images/logo_dsti.png"
 width ='300'
 height = '170'
 >
