@@ -1,6 +1,10 @@
 <p style="text-align: center;">Book Reviews Project Report</p>
 
 <div style="text-align: center;">
-![](images/logo_DSTI.png)
+<img
+src="images/logo_DSTI.png"
+width ='300'
+height = '170'
+>
 </div>
 
