@@ -11,19 +11,17 @@ STARTING DOCKER
 
 Method 1 # Uncomment the CMD["python3","train.py"]
 1) Build the docker images
-cd app
-docker -t build books .
+docker build -t books .
 
 Run the docker
 docker run -it books # model automatically start training 3 models decision tree, xgboost and random forest.
 
 
-
 Method 2 : comment the CMD["python3","train.py"] & mapping with volume on your local pc
 
 1) Build the docker images
-cd ./app
-docker -t build books .
+
+docker build -t books .
 
 Run the docker
 docker run -it -v /host/path:/app books
