@@ -11,7 +11,7 @@ STARTING DOCKER
 
 Method 1 # Uncomment the CMD["python3","train.py"]
 1) Build the docker images
-cd ./app
+cd app
 docker -t build books .
 
 Run the docker
