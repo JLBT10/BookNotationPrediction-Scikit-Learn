@@ -19,7 +19,7 @@ def evaluation(model,saving_dir,model_name,X_test,y_test):
     y_test_predict = model.predict(X_test)
     with open('./runs/{}/Classification_report/{}_classification_report'.format(saving_dir,model_name),'w') as f :
         f.write(classification_report(y_test, y_test_predict))
-    print('Classification report on test set {}'.format(model_name))
+    print('**** CLASSIFICATION REPORT ON TEST SET {}\n'.format(model_name))
     print(classification_report(y_test, y_test_predict))
     conf_matrix = confusion_matrix(y_test, y_test_predict.round())
     # Display the confusion matrix using a heatmap

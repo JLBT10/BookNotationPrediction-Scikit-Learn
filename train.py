@@ -21,6 +21,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
 from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier 
 
 #Test metrics
 from eval import *
@@ -34,12 +36,31 @@ def processing():
     
     '''
     #Load train and test data
-    train=pd.read_csv('datasets/train.csv')
-    test=pd.read_csv('datasets/test.csv')
+    #Let's perform a stratify split by average_rating
+
+    print('**** LOADING THE DATASET **** \n')
+
+    df=pd.read_csv('./datasets/books.csv',error_bad_lines=False)
+    df.rename(columns={'  num_pages':'num_pages'},inplace=True)
+
+    print('**** CREATING CATEGORY CLASSES**** \n')
+    df['average_ratings_category']=pd.cut(df['average_rating'],bins=[-1,2,3,4,5],labels=['0','1','2','3'])
+    print(df['average_ratings_category'].value_counts())
+
+    print('**** SPLITING THE DATASET INTO TEST AND TRAIN **** \n')
+    #Split the data into train and test.
+    train, test= train_test_split(df,test_size=0.2,random_state=42,stratify=df['average_ratings_category'])
+
+    # Save train and test
+    train.to_csv('./datasets/train.csv',index=False)
+    test.to_csv('./datasets/test.csv',index=False)
+
+    #train=pd.read_csv('datasets/train.csv')
+    #test=pd.read_csv('datasets/test.csv')
 
     #Columns to be delete 
-    dropped_columns=['publication_date','rate_ratings', 'isbn13', 'title','isbn', 'bookID','authors','average_rating','language_code','publisher','authors_split']
-
+    dropped_columns=['publication_date', 'isbn13', 'title','isbn', 'bookID','authors','average_rating','language_code','publisher','authors_split']
+    print('**** STARTING PIPELINE PROCESSING **** \n')
     #Let's define the pipeline
     pipeline = Pipeline([
     ("ohe",BooksProcessingTransformer())
@@ -48,6 +69,7 @@ def processing():
     ('cr',ColumnRemoverTransformer(dropped_columns)),
     ("stsc",StandardScalerWithNames())
     ])
+    
     # Fit and transform train and test sets
     train=pipeline.fit_transform(train)
     test=pipeline.transform(test)
@@ -67,15 +89,14 @@ def processing():
     y_train=label_encoder.transform(y_train)
     y_test=label_encoder.transform(y_test)
 
-        # Applied SMOTE on the train set for training
+    print('**** SMOTE TRAIN DATASET **** \n')
+    # Applied SMOTE on the train set for training
     print("Class distribution before SMOTE:", Counter(y_train))
-
-    print('Applying SMOTE to balance the classes')
     smote = SMOTE(sampling_strategy='auto', random_state=42)
     X_train, y_train = smote.fit_resample(X_train, y_train)
 
     # Displaying the class distribution after applying SMOTE
-    print("Class distribution after SMOTE:", Counter(y_train))
+    print("Class distribution after SMOTE:", Counter(y_train),'\n')
 
     return X_train,y_train,X_test,y_test
 
@@ -131,17 +152,18 @@ def train(models,metrics,params,X_train,y_train,X_test,y_test,cv):
             else:
                 model = model_class(par) # load the model
 
-            print('Start training with {}'.format(model_name))  
+            print('**** STARTING TRAINING WITH {}****\n '.format(model_name))  
             model.fit(X_train, y_train) # Train 
 
             # Evaluate on each metric contains in metrics
-            print('Computing metric...')
+            print('**** COMPUTING METRICS ...**** \n')
             for metric in metrics: 
                 scores = cross_val_score(model, X_train, y_train, cv=cv, scoring=metric, n_jobs=-1)
                 results['{}_train'.format(metric)][model_name] = round(scores.mean(), 4)
-                print('Train_{}'.format(metric), ':', '{}'.format(round(scores.mean(), 4)) )
+                print('Train_{}'.format(metric), ':', '{}\n'.format(round(scores.mean(), 4)) )
+                
 
-            print('Starting Evaluation {}'.format(model_name))  
+            print('**** STARTING EVALUATION WITH {}**** \n'.format(model_name))  
             evaluation(model,saving_dir,model_name,X_test,y_test) #Evaluation on test sets
 
             print('Saving the model in runs/{}'.format(saving_dir))
@@ -160,20 +182,16 @@ def main():
     X_train,y_train,X_test,y_test=processing()
 
     #Models
-    models = [XGBClassifier, SVC, RandomForestClassifier]
+    models = [ DecisionTreeClassifier ,XGBClassifier, RandomForestClassifier]
 
     #Metrics
     metrics = ['accuracy', 'precision_weighted', 'recall_weighted', 'f1_weighted']
 
     #Params
-    params=[{"n_estimators":200,
-    "max_depth":15,
-    "learning_rate":0.1,
-    "subsample":0.1,
-    "colsample_bytree":0.3},{},{}]
+    params=[{},{},{}]
 
-    #Trin
-    res=train(models,metrics,params,X_train,y_train,X_test,y_test,4)
+    #Train
+    res=train(models,metrics,params,X_train,y_train,X_test,y_test,10)
 
     #Save result and print
     res.to_csv('resultats.csv')

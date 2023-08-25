@@ -14,7 +14,7 @@ def month_year(df,columns):
 
 def drop_outliers(df):
     '''Drop all the rows where ratings_counts=0 and average_rating==0'''
-    mask=(df.ratings_count==0) | (df.average_rating==0) #are we supposed to use or here or and? 
+    mask=(df.ratings_count==0) & (df.average_rating==0)
     return df[~mask]
 
 class BooksProcessingTransformer(BaseEstimator, TransformerMixin):
@@ -27,7 +27,7 @@ class BooksProcessingTransformer(BaseEstimator, TransformerMixin):
         X_transformed = X.copy()
         
         # Drop duplicate titles
-        X_transformed = X_transformed.drop(X_transformed[X_transformed['title'].duplicated(keep='first')].index)
+        #X_transformed = X_transformed.drop(X_transformed[X_transformed['title'].duplicated(keep='first')].index)
         
         # Process num_pages
         X_transformed['num_pages'] = X_transformed['num_pages'].replace(0, np.mean(X_transformed['num_pages']))
@@ -110,9 +110,10 @@ class AuthorsFeaturesTransformer(BaseEstimator, TransformerMixin):
     
     def transform(self, X):
         X_transformed = X.copy()
-        
-        X_transformed['rate_ratings'] = 1 - (X_transformed['text_reviews_count']) / X_transformed['ratings_count']
-        X_transformed['rate_ratings_authors'] = X_transformed['rate_ratings'] * X_transformed['authors_average_notation']
+        X_transformed_mask= X_transformed['ratings_count']!=0
+        X_transformed.loc[X_transformed_mask, 'ratio_of_text_reviews'] = X_transformed['text_reviews_count'] / X_transformed['ratings_count']
+        X_transformed.loc[~X_transformed_mask,'ratio_of_text_reviews']=0
+        #X_transformed['rate_ratings_authors'] = X_transformed['rate_ratings'] * X_transformed['authors_average_notation']
         
         # You can choose to drop columns here if needed
         #X_transformed.drop(['rate_ratings'], axis=1, inplace=True)

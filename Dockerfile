@@ -6,13 +6,14 @@ RUN apt-get update -y && \
     apt-get install -y python3.9 && \
     apt-get install -y python3-pip &&\
     pip install --upgrade pip 
-    
 
 # Set the working directory
 WORKDIR /app
 
-# Copy your code into the image
-#COPY . /app
+# Copy the code into the image
+COPY . /app
+ # Install the required packages
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Specify the default command to run when the container starts
-#CMD ["sh", "-c", "pip install -r requirement.txt && python3 train.py"]
+#CMD ["python3", "train.py"]
