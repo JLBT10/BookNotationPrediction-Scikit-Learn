@@ -46,7 +46,14 @@ docker run -it -v /host/path:/app books
 
 ```
 
-*/host/path : path is the books_project directory (.../books_project)
+*/host/path : path is the books_project directory usually like this for a windows machine (c/users/.../books_project)
+4. Once you have started the container, run the train.py script like this and observe the outputs till the end, then exit the container.
 
-With method 2 you have access to the container and the docker is mapped to the books_project directory on your local pc.
+
+```
+python3 train.py
+
+```
+
+With method 2 you have access to the container and the docker is mapped to the books_project directory on your local pc.<br>
 **You can then easily check the results of training by opening the runs directory on your pc**.
