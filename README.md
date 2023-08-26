@@ -46,7 +46,8 @@ docker run -it -v /host/path:/app books
 
 ```
 
-*/host/path : path is the books_project directory usually like this for a windows machine (c/users/.../books_project)
+*/host/path : path is the books_project directory usually like this for a windows machine (c/users/.../books_project)<br>
+
 4. Once you have started the container, run the train.py script like this and observe the outputs till the end, then exit the container.
 
 
