@@ -1,4 +1,4 @@
-## How to run the project!
+# How to run the project!
 
 Clone the repository to your local
 
@@ -7,11 +7,9 @@ git clone https://github.com/JLBT10/books_project.git
 
 ```
 
-Download __[goodreads_book_authors.json.gz](https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/books?authuser=0)__ extract and save it in the dataset folder in books_project
+**STARTING DOCKER**
 
-STARTING DOCKER
-
-# Method 1(Declarative)
+## Method 1(Declarative)
 1. Open the Dockerfile and Uncomment the CMD["python3","train.py"] in line 19
 
 2. Build the docker images
@@ -27,7 +25,7 @@ docker run -it books
 
 ```
 
-# Method 2 (Iterative)
+## Method 2 (Iterative)
 
 1. Open the Dockerfile and comment the CMD["python3","train.py"] then map with volume on your local pc
 
