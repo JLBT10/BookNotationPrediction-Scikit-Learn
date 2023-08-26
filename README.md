@@ -9,7 +9,7 @@ git clone https://github.com/JLBT10/books_project.git
 
 **STARTING DOCKER**
 
-## Method 1(Declarative)
+### Method 1(Declarative)
 1. Open the Dockerfile and Uncomment the CMD["python3","train.py"] in line 19
 
 2. Build the docker images
@@ -25,7 +25,7 @@ docker run -it books
 
 ```
 
-## Method 2 (Iterative)
+### Method 2 (Iterative)
 
 1. Open the Dockerfile and comment the CMD["python3","train.py"] then map with volume on your local pc
 
