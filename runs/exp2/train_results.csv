@@ -1,0 +1,4 @@
+,accuracy_train,precision_weighted_train,recall_weighted_train,f1_weighted_train
+DecisionTreeClassifier,0.8444,0.8445,0.847,0.8451
+XGBClassifier,0.8886,0.89,0.8886,0.8881
+RandomForestClassifier,0.8924,0.8931,0.8906,0.8915
