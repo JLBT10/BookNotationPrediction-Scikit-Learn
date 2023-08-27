@@ -62,3 +62,7 @@ python3 train.py
 
 With method 2 you have access to the container and the docker is mapped to the books_project directory on your local pc.<br>
 **You can then easily check the results of training by opening the runs directory on your pc**.
+
+
+# NB
+The data analysis notebook if found in the project_report folder 
