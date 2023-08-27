@@ -1,0 +1,113 @@
+**** LOADING THE DATASET **** 
+
+
+ **** CREATING CATEGORY CLASSES**** 
+
+average_ratings_category
+2    6285
+3    4735
+1      69
+0      34
+Name: count, dtype: int64
+**** SPLITING THE DATASET INTO TEST AND TRAIN **** 
+
+**** STARTING PIPELINE PROCESSING **** 
+
+**** SMOTE TRAIN DATASET **** 
+
+Class distribution before SMOTE: Counter({2: 4994, 3: 3643, 1: 54, 0: 7})
+Class distribution after SMOTE: Counter({2: 4994, 3: 4994, 1: 4994, 0: 4994}) 
+
+
+ **** STARTING TRAINING WITH DecisionTreeClassifier**** 
+ 
+**** COMPUTING TRAIN METRICS ...**** 
+
+Train_accuracy : 0.8492
+
+Train_precision_weighted : 0.8477
+
+Train_recall_weighted : 0.8492
+
+Train_f1_weighted : 0.8479
+
+**** STARTING EVALUATION WITH DecisionTreeClassifier**** 
+
+Classification report on test set DecisionTreeClassifier
+
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         2
+           1       0.06      0.29      0.11        14
+           2       0.72      0.73      0.73      1247
+           3       0.67      0.61      0.63       915
+
+    accuracy                           0.68      2178
+   macro avg       0.36      0.41      0.37      2178
+weighted avg       0.69      0.68      0.68      2178
+
+Saving the model in runs/exp4
+
+ **** STARTING TRAINING WITH XGBClassifier**** 
+ 
+**** COMPUTING TRAIN METRICS ...**** 
+
+Train_accuracy : 0.8814
+
+Train_precision_weighted : 0.8807
+
+Train_recall_weighted : 0.8814
+
+Train_f1_weighted : 0.8806
+
+**** STARTING EVALUATION WITH XGBClassifier**** 
+
+Classification report on test set XGBClassifier
+
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         2
+           1       0.13      0.29      0.18        14
+           2       0.79      0.76      0.78      1247
+           3       0.71      0.73      0.72       915
+
+    accuracy                           0.74      2178
+   macro avg       0.41      0.44      0.42      2178
+weighted avg       0.75      0.74      0.75      2178
+
+Saving the model in runs/exp4
+
+ **** STARTING TRAINING WITH RandomForestClassifier**** 
+ 
+**** COMPUTING TRAIN METRICS ...**** 
+
+Train_accuracy : 0.8935
+
+Train_precision_weighted : 0.8934
+
+Train_recall_weighted : 0.8935
+
+Train_f1_weighted : 0.893
+
+**** STARTING EVALUATION WITH RandomForestClassifier**** 
+
+Classification report on test set RandomForestClassifier
+
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         2
+           1       0.07      0.07      0.07        14
+           2       0.78      0.78      0.78      1247
+           3       0.72      0.71      0.71       915
+
+    accuracy                           0.75      2178
+   macro avg       0.39      0.39      0.39      2178
+weighted avg       0.75      0.75      0.75      2178
+
+Saving the model in runs/exp4
+                        accuracy_train  ...  f1_weighted_train
+DecisionTreeClassifier          0.8492  ...             0.8479
+XGBClassifier                   0.8814  ...             0.8806
+RandomForestClassifier          0.8935  ...             0.8930
+
+[3 rows x 4 columns]
