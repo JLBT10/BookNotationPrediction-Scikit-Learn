@@ -1,0 +1,40 @@
+**** LOADING THE DATASET **** 
+
+
+ **** CREATING CATEGORY CLASSES****
+
+average_ratings_category
+2    6285
+3    4735
+1      69
+0      34
+Name: count, dtype: int64
+**** SPLITING THE DATASET INTO TEST AND TRAIN ****
+
+**** STARTING PIPELINE PROCESSING **** 
+
+**** SMOTE TRAIN DATASET **** 
+
+Class distribution before SMOTE: Counter({2: 4994, 3: 3643, 1: 54, 0: 7})
+Class distribution after SMOTE: Counter({2: 4994, 3: 4994, 1: 4994, 0: 4994})
+
+**** Starting grid search****
+
+ **** STARTING TRAINING WITH XGBClassifier**** 
+ 
+**** COMPUTING TRAIN METRICS ...**** 
+
+Train_accuracy : 0.894
+
+Train_precision_weighted : 0.8946
+
+**** STARTING EVALUATION WITH XGBClassifier****
+
+Classification report on test set XGBClassifier
+
+              precision    recall  f1-score   support
+   Accuracy     		       0.74      2178
+   macro avg       0.42      0.42      0.42      2178
+weighted avg       0.74      0.74      0.74      2178
+
+Saving the model in runs/exp2
