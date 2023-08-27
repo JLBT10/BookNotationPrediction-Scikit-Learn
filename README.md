@@ -65,4 +65,4 @@ With method 2 you have access to the container and the docker is mapped to the b
 
 
 # NB
-The data analysis notebook if found in the project_report folder 
+The data analysis notebook is found in the project_report folder 
