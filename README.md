@@ -6,6 +6,12 @@ Clone the repository to your local
 git clone https://github.com/JLBT10/books_project.git
 
 ```
+Get in the books_project directory
+
+```
+cd books_project
+
+```
 
 **STARTING DOCKER**
 
