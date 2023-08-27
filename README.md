@@ -21,7 +21,7 @@ cd books_project
 2. Build the docker images
 
 ```
-docker build -t books .
+docker build . -t books -f src/Dockerfile
 
 ```
 3. Run the image in a container by running the command below (model automatically start training 3 models decision tree, xgboost and random forest.)
@@ -39,14 +39,14 @@ docker run -it books
 
 ```
 
-docker build -t books .
+docker build . -t books -f src/Dockerfile
 
 ```
 
 3. Run the image in a container
 
 ```
-docker run -it -v /host/path:/app books
+docker run -it -v "/host/path":/app books
 
 ```
 
